@@ -68,7 +68,7 @@ jobs:
       # ----------------------------
       - name: 📈 Generate Allure Report
         if: always()
-        run: npx allure generate allure-results --clean -o allure-report
+        run: npx allure generate allure-results --clean -o public
 
       # ----------------------------
       # 8. Upload Allure Report
@@ -79,4 +79,4 @@ jobs:
         with:
           name: allure-report
           path: allure-report/
-          retention-days: 30
+          retention-days: 7
