@@ -5,9 +5,9 @@ name: E2E Tests — WebdriverIO + Cucumber
 # =============================================
 on:
   push:
-    branches: [main, develop]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   e2e-tests:
