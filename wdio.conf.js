@@ -5,7 +5,7 @@ exports.config = {
     // Runner Configuration
     // ====================
     runner: 'local',
-    
+
     // ==================
     // Test Configuration
     // ==================
@@ -20,7 +20,7 @@ exports.config = {
             './features/checkout.feature'
         ]
     },
-    
+
     // ============
     // Capabilities
     // ============
@@ -39,7 +39,7 @@ exports.config = {
         },
         acceptInsecureCerts: true
     }],
-    
+
     // ===================
     // Test Configurations
     // ===================
@@ -49,12 +49,12 @@ exports.config = {
     waitforTimeout: 10000,
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,
-    
+
     // ========
     // Services
     // ========
     services: [],
-    
+
     // =========
     // Framework
     // =========
@@ -73,7 +73,7 @@ exports.config = {
         timeout: 60000,
         ignoreUndefinedDefinitions: false
     },
-    
+
     // =========
     // Reporters
     // =========
@@ -82,6 +82,7 @@ exports.config = {
         ['allure', {
             outputDir: 'allure-results',
             disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: true,
             useCucumberStepReporter: true
         }]
     ],
