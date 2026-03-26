@@ -6,6 +6,11 @@ const InventoryPage = require('../pageobjects/inventory.page');
 // When Steps
 // ==============================
 
+When('I add product {string} to the cart', async (productKey) => {
+    const itemName = process.env[productKey] || productKey;
+    await InventoryPage.addItemToCart(itemName);
+});
+
 When('I add {string} to the cart', async (itemName) => {
     await InventoryPage.addItemToCart(itemName);
 });

@@ -19,6 +19,18 @@ When('I login with username {string} and password {string}', async (username, pa
     await LoginPage.login(username, password);
 });
 
+When('I login with valid credentials', async () => {
+    const username = process.env.SAUCE_USERNAME;
+    const password = process.env.SAUCE_PASSWORD;
+    await LoginPage.login(username, password);
+});
+
+When('I login with invalid credentials', async () => {
+    const username = process.env.SAUCE_INVALID_USERNAME;
+    const password = process.env.SAUCE_INVALID_PASSWORD;
+    await LoginPage.login(username, password);
+});
+
 // ==============================
 // Then Steps
 // ==============================

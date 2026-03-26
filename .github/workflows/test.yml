@@ -52,7 +52,8 @@ jobs:
       - name: 🧪 Run E2E Tests
         run: npx wdio run wdio.conf.js
         env:
-          BASE_URL: https://www.saucedemo.com
+          GITHUB_VARS_JSON: ${{ toJSON(vars) }}
+          GITHUB_SECRETS_JSON: ${{ toJSON(secrets) }}
 
       # ----------------------------
       # 6. Upload Allure results

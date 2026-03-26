@@ -21,6 +21,7 @@
     "@wdio/local-runner": "^9.27.0",
     "@wdio/spec-reporter": "^9.27.0",
     "allure-commandline": "^2.38.1",
+    "dotenv": "^17.3.1",
     "webdriverio": "^9.27.0"
   }
 }
