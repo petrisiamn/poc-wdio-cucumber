@@ -20,24 +20,56 @@
 poc-wdio-cucumber/
 ├── .github/workflows/
 │   └── test.yml                    # GitHub Actions CI/CD pipeline
-├── features/
+├── tests/
+│   ├── features/
+│   │   ├── login.feature           # Login test scenarios
+│   │   ├── cart.feature            # Cart test scenarios
+│   │   └── checkout.feature        # Checkout test scenarios
 │   ├── pageobjects/
 │   │   ├── page.js                 # Base page class
 │   │   ├── login.page.js           # Login page object
 │   │   ├── inventory.page.js       # Inventory page object
 │   │   ├── cart.page.js            # Cart page object
 │   │   └── checkout.page.js        # Checkout page object
-│   ├── step-definitions/
-│   │   ├── login.steps.js          # Login step definitions
-│   │   ├── cart.steps.js           # Cart step definitions
-│   │   └── checkout.steps.js       # Checkout step definitions
-│   ├── login.feature               # Login test scenarios
-│   ├── cart.feature                # Cart test scenarios
-│   └── checkout.feature            # Checkout test scenarios
+│   └── step-definitions/
+│       ├── login.steps.js          # Login step definitions
+│       ├── cart.steps.js           # Cart step definitions
+│       └── checkout.steps.js       # Checkout step definitions
+├── .env                            # Reusable env variables (base URL, product names)
+├── .env.secret                     # Secret credentials (gitignored)
 ├── wdio.conf.js                    # WebdriverIO configuration
 ├── package.json                    # Dependencies & scripts
 └── README.md                       # This file
 ```
+
+## 🔐 Environment Variables
+
+This project uses **dotenv** to manage configuration and secrets:
+
+| File | Purpose | Git tracked? |
+|---|---|---|
+| `.env` | Reusable config (BASE_URL, product names) | ✅ Yes |
+| `.env.secret` | Credentials (usernames, passwords) | ❌ No (gitignored) |
+
+### Setup `.env.secret` for local development
+
+Create a `.env.secret` file in the project root:
+
+```env
+SAUCE_USERNAME=standard_user
+SAUCE_PASSWORD=secret_sauce
+SAUCE_INVALID_USERNAME=invalid_user
+SAUCE_INVALID_PASSWORD=wrong_password
+```
+
+### GitHub Actions Secrets
+
+For CI/CD, add these as **Repository Secrets** in GitHub:
+
+- `SAUCE_USERNAME`
+- `SAUCE_PASSWORD`
+- `SAUCE_INVALID_USERNAME`
+- `SAUCE_INVALID_PASSWORD`
 
 ## 🚀 Getting Started
 
@@ -84,7 +116,7 @@ npx allure open allure-report
 | **Login** | Successful login with valid credentials | `@login @smoke` |
 | **Login** | Failed login with invalid credentials | `@login @negative` |
 | **Cart** | Add a single item to the cart | `@cart` |
-| **Cart** | Add multiple items to the cart | `@cart` |
+| **Cart** | Add multiple items to the cart | `@cart @skip` |
 | **Checkout** | Complete a full purchase | `@checkout` |
 | **Checkout** | Checkout with empty form fields | `@checkout` |
 | **Checkout** | Verify order completion and return home | `@checkout` |
@@ -93,27 +125,18 @@ npx allure open allure-report
 
 The GitHub Actions pipeline (`.github/workflows/test.yml`) runs automatically on:
 
-- **Push** to `main` or `develop` branch
-- **Pull requests** targeting `main`
+- **Push** to `master` branch
+- **Pull requests** targeting `master`
 
 ### Pipeline Steps
 
 ```
-📥 Checkout → 🟢 Setup Node → 🌐 Install Chrome → 📦 Install deps → 🧪 Run Tests → 📊 Upload Reports
+📥 Checkout → 🟢 Setup Node → 🌐 Install Chrome → 📦 Install deps → 🧪 Run Tests → 📊 Upload Reports → 🚀 Deploy to GitHub Pages
 ```
 
 ### Viewing Reports
 
-After a pipeline run, download the **Allure Report** artifact from the GitHub Actions run page to view detailed test results.
-
-## 📝 Test Credentials (SauceDemo)
-
-| Username | Password | Description |
-|---|---|---|
-| `standard_user` | `secret_sauce` | ✅ Standard user — all features work |
-| `locked_out_user` | `secret_sauce` | 🔒 Locked out — login blocked |
-| `problem_user` | `secret_sauce` | ⚠️ Broken images & behavior |
-| `performance_glitch_user` | `secret_sauce` | 🐌 Slow responses |
+After a pipeline run, the **Allure Report** is automatically deployed to **GitHub Pages**.
 
 ---
 

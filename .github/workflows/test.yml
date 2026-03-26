@@ -53,6 +53,12 @@ jobs:
         run: npx wdio run wdio.conf.js
         env:
           BASE_URL: https://www.saucedemo.com
+          PRODUCT_1: Sauce Labs Backpack
+          PRODUCT_2: Sauce Labs Bike Light
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_PASSWORD: ${{ secrets.SAUCE_PASSWORD }}
+          SAUCE_INVALID_USERNAME: ${{ secrets.SAUCE_INVALID_USERNAME }}
+          SAUCE_INVALID_PASSWORD: ${{ secrets.SAUCE_INVALID_PASSWORD }}
 
       # ----------------------------
       # 6. Upload Allure results

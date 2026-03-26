@@ -7,16 +7,16 @@ Feature: Shopping Cart
 
   Background:
     Given I am on the login page
-    And I login with username "standard_user" and password "secret_sauce"
+    And I login with valid credentials
     And I should be redirected to the inventory page
 
   Scenario: Add a single item to the cart
-    When I add "Sauce Labs Backpack" to the cart
+    When I add product "PRODUCT_1" to the cart
     Then the cart badge should show "1"
 
   # TODO: Fix — add-to-cart button changes to 'Remove' when item already in cart from previous scenario
   @skip
   Scenario: Add multiple items to the cart
-    When I add "Sauce Labs Backpack" to the cart
-    And I add "Sauce Labs Bike Light" to the cart
+    When I add product "PRODUCT_1" to the cart
+    And I add product "PRODUCT_2" to the cart
     Then the cart badge should show "2"

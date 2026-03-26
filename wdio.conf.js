@@ -1,4 +1,6 @@
 const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+require('dotenv').config({ path: path.resolve(__dirname, '.env.secret'), override: true });
 
 exports.config = {
     // ====================
@@ -10,14 +12,14 @@ exports.config = {
     // Test Configuration
     // ==================
     specs: [
-        './features/**/*.feature'
+        './tests/features/**/*.feature'
     ],
     suites: {
-        smoke: ['./features/login.feature'],
+        smoke: ['./tests/features/login.feature'],
         regression: [
-            './features/login.feature',
-            './features/cart.feature',
-            './features/checkout.feature'
+            './tests/features/login.feature',
+            './tests/features/cart.feature',
+            './tests/features/checkout.feature'
         ]
     },
 
@@ -60,7 +62,7 @@ exports.config = {
     // =========
     framework: 'cucumber',
     cucumberOpts: {
-        require: ['./features/step-definitions/**/*.js'],
+        require: ['./tests/step-definitions/**/*.js'],
         backtrace: false,
         requireModule: [],
         dryRun: false,
