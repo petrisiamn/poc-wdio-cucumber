@@ -1,6 +1,34 @@
 const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '.env') });
-require('dotenv').config({ path: path.resolve(__dirname, '.env.secret'), override: true });
+
+// =============================================
+// Environment variable loading strategy:
+//   - CI (GitHub Actions): vars and secrets are passed as JSON blobs
+//     via GITHUB_VARS_JSON / GITHUB_SECRETS_JSON env vars.
+//     This auto-injects ALL GitHub Variables & Secrets into process.env.
+//   - Local: falls back to .env and .env.secret files via dotenv.
+// =============================================
+if (process.env.GITHUB_VARS_JSON) {
+    try {
+        const vars = JSON.parse(process.env.GITHUB_VARS_JSON);
+        Object.assign(process.env, vars);
+    } catch (e) {
+        console.warn('[wdio.conf] Failed to parse GITHUB_VARS_JSON:', e.message);
+    }
+}
+if (process.env.GITHUB_SECRETS_JSON) {
+    try {
+        const secrets = JSON.parse(process.env.GITHUB_SECRETS_JSON);
+        Object.assign(process.env, secrets);
+    } catch (e) {
+        console.warn('[wdio.conf] Failed to parse GITHUB_SECRETS_JSON:', e.message);
+    }
+}
+
+// Local development: load from .env / .env.secret
+if (!process.env.GITHUB_ACTIONS) {
+    require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+    require('dotenv').config({ path: path.resolve(__dirname, '.env.secret'), override: true });
+}
 
 exports.config = {
     // ====================
